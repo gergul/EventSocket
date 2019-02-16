@@ -1,1 +1,15 @@
 /.vs/Libevent_threads/v14
+/Debug
+/Libevent_client/Debug
+/Libevent_client/Release
+/Libevent_client/x64/Debug
+/Libevent_client/x64/Release
+/Libevent_server/Debug
+/Libevent_server/Release
+/Libevent_server/x64/Debug
+/Libevent_server/x64/Release
+/Libevent_threads.VC.VC.opendb
+/Libevent_threads.VC.db
+/Release
+/x64/Debug
+/x64/Release
