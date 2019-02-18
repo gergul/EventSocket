@@ -3,6 +3,8 @@
 #include "TCP_Client_Sync.h"
 #include "TCP_Client_SyncEx.h"
 
+#define TEST_SYNC 1
+
 class MyClient
 	: public TCP_Client
 {
@@ -31,6 +33,7 @@ private:
 	u_short m_remotePort;
 };
 
+#if (defined TEST_SYNC) && (TEST_SYNC == 1)
 void main()
 {
 	TCP_Client_SyncEx client;
@@ -56,3 +59,28 @@ void main()
 	while (true)
 		Sleep(100000);
 }
+
+#else
+
+void main()
+{
+	MyClient client;
+	int res = client.setup("127.0.0.1", 9000);
+	if (0 == res)
+	{
+		client.loop_in_new_thread();
+		for (int i = 0; i < 1000; ++i)
+		{
+			client.send("Gergul\n");
+			Sleep(500);
+		}
+	}
+
+	Sleep(10000);
+	client.closeSocket();
+
+	while (true)
+		Sleep(100000);
+}
+
+#endif

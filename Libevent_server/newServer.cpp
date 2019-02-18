@@ -2,6 +2,8 @@
 #include <iostream>
 #include "TCP_Session_SyncEx.h"
 
+#define TEST_SYNC 1
+
 class MySession
 	: public TCP_Session
 {
@@ -57,18 +59,23 @@ class MyServer
 public:
 	virtual class TCP_Session* onCreateSession(intptr_t accept_fd) override
 	{
-		return new MySession_SyncEx;
+		if (createSyncEx)
+			return new MySession_SyncEx;
+		return new MySession(accept_fd);
 	}
+
+	bool createSyncEx{ false };
 };
 
 void main()
 {
 	MyServer tcpServer;
+#if (defined TEST_SYNC) && (TEST_SYNC == 1)
+	tcpServer.createSyncEx = true;
+#endif
 	if (tcpServer.setup("0.0.0.0", 9000) == 0)
 		tcpServer.loop_in_new_thread();
-
 	
-
 	while (1)
 		Sleep(100000);
 }
