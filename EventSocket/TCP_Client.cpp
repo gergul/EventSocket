@@ -10,13 +10,11 @@
 #include <pthread.h>
 #endif
 
-#define BUF_SIZE 2048
-
 TCP_Client::TCP_Client()
 	: m_bLoopStopping(true)
 	, m_bLoopTheadHasStarted(false)	
 {
-	m_buffRead = new char[BUF_SIZE];
+	m_buffRead = new char[BUF_MAX_SIZE];
 }
 
 
@@ -247,9 +245,9 @@ void TCP_Client::_static_on_read(intptr_t sock, short event, void* arg)
 	//--本来应该用while一直循环，但由于用了libevent，只在可以读的时候才触发_static_on_read(),故不必用while了
 	_THIS->m_buffSize =
 #ifdef _WIN32
-		recv(sock, _THIS->m_buffRead, BUF_SIZE, 0);
+		recv(sock, _THIS->m_buffRead, BUF_MAX_SIZE, 0);
 #else
-		read(sock, _THIS->m_buffRead, BUF_SIZE);
+		read(sock, _THIS->m_buffRead, BUF_MAX_SIZE);
 #endif
 	if (_THIS->m_buffSize <= 0)
 	{//说明socket关闭，退出session循环

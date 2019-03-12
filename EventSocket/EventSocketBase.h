@@ -12,6 +12,8 @@ public:
 	EventSocketBase();
 	virtual ~EventSocketBase();
 
+	static int BUF_MAX_SIZE;
+
 public:
 	void setSocketFd(intptr_t socketFd) { m_socket_fd = socketFd; }
 	intptr_t getSocketFd() { return m_socket_fd; }

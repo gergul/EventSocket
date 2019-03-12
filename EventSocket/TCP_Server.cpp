@@ -10,7 +10,6 @@
 #include <pthread.h>
 #endif
 
-#define BUF_SIZE 2048
 
 TCP_Server::TCP_Server()
 	: ev_base(NULL)
@@ -300,7 +299,7 @@ TCP_Session::TCP_Session()
 	: m_server(NULL)
 	, m_bAutoRelease(true)
 {
-	m_buffRead = new char[BUF_SIZE];
+	m_buffRead = new char[BUF_MAX_SIZE];
 }
 
 TCP_Session::~TCP_Session()
@@ -464,9 +463,9 @@ void TCP_Session::_static_on_read(intptr_t sock, short event, void* arg)
 	//--本来应该用while一直循环，但由于用了libevent，只在可以读的时候才触发_static_on_read(),故不必用while了
 	_THIS->m_buffSize =
 #ifdef _WIN32
-		recv(sock, _THIS->m_buffRead, BUF_SIZE, 0);
+		recv(sock, _THIS->m_buffRead, BUF_MAX_SIZE, 0);
 #else
-		read(sock, _THIS->m_buffRead, BUF_SIZE);
+		read(sock, _THIS->m_buffRead, BUF_MAX_SIZE);
 #endif
 	if (_THIS->m_buffSize <= 0)
 	{//说明socket关闭，退出session循环

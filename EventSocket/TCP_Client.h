@@ -8,7 +8,7 @@ class TCP_Client
 public:
 	TCP_Client();
 	virtual ~TCP_Client();
-
+	
 public:
 	virtual int setup(const char* ip, u_short port);
 	virtual int loop() override;
