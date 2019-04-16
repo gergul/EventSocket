@@ -48,6 +48,12 @@
     <ClCompile Include="..\EventSocket\TCP_Session_SyncEx.cpp">
       <Filter>EventSocket</Filter>
     </ClCompile>
+    <ClCompile Include="..\EventSocket\uv_errno.cpp">
+      <Filter>EventSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EventSocket\DnsCache.cpp">
+      <Filter>EventSocket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EventSocket\Net_Helper.h">
@@ -72,6 +78,12 @@
       <Filter>EventSocket</Filter>
     </ClInclude>
     <ClInclude Include="..\EventSocket\TCP_Session_SyncEx.h">
+      <Filter>EventSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EventSocket\uv_errno.h">
+      <Filter>EventSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EventSocket\DnsCache.h">
       <Filter>EventSocket</Filter>
     </ClInclude>
   </ItemGroup>

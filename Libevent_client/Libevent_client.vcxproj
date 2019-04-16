@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\EventSocket\DnsCache.cpp" />
     <ClCompile Include="..\EventSocket\EventSocketBase.cpp" />
     <ClCompile Include="..\EventSocket\GLEvent.cpp" />
     <ClCompile Include="..\EventSocket\Net_Helper.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\EventSocket\TCP_Client_SyncEx.cpp" />
     <ClCompile Include="..\EventSocket\TCP_Server.cpp" />
     <ClCompile Include="..\EventSocket\TCP_Session_SyncEx.cpp" />
+    <ClCompile Include="..\EventSocket\uv_errno.cpp" />
     <ClCompile Include="client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -171,6 +173,7 @@
     <ClCompile Include="newClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\EventSocket\DnsCache.h" />
     <ClInclude Include="..\EventSocket\EventSocketBase.h" />
     <ClInclude Include="..\EventSocket\GLEvent.h" />
     <ClInclude Include="..\EventSocket\Net_Helper.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="..\EventSocket\TCP_Client_SyncEx.h" />
     <ClInclude Include="..\EventSocket\TCP_Server.h" />
     <ClInclude Include="..\EventSocket\TCP_Session_SyncEx.h" />
+    <ClInclude Include="..\EventSocket\uv_errno.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,10 +9,11 @@
 #else
 #include <pthread.h>
 #endif
+#include "DnsCache.h"
 
 TCP_Client::TCP_Client()
-	: m_bLoopStopping(true)
-	, m_bLoopTheadHasStarted(false)	
+	: /*m_bLoopStopping(true)
+	, */m_bLoopTheadHasStarted(false)
 {
 	m_buffRead = new char[BUF_MAX_SIZE];
 }
@@ -23,12 +24,12 @@ TCP_Client::~TCP_Client()
 	delete[] m_buffRead;
 }
 
-int TCP_Client::setup(const char* ip, u_short port)
+int TCP_Client::setup(const char* host, u_short port)
 {
 	if (isValid())
 		return -99;
 
-	int sock_res = _setupSocket(ip, port);
+	int sock_res = _setupSocket(host, port);
 	if (sock_res != 0)
 		return sock_res;
 
@@ -50,7 +51,7 @@ int TCP_Client::setup(const char* ip, u_short port)
 
 int TCP_Client::loop()
 {
-	m_bLoopStopping = false;
+	//m_bLoopStopping = false;
 
 	int res = 0;
 	do
@@ -109,7 +110,7 @@ int TCP_Client::loop_in_new_thread()
 
 int TCP_Client::_stopLoop(bool waiting)
 {
-	m_bLoopStopping = true;
+	//m_bLoopStopping = true;
 
 	if (ev_base == NULL)
 		return 1;
@@ -183,9 +184,15 @@ int TCP_Client::_setupSocket(const char* ip, u_short port)
 		return -1;
 
 	struct sockaddr_in remote_addr; //服务器端网络地址结构体
-	memset(&remote_addr, 0, sizeof(remote_addr)); //数据初始化--清零
-	remote_addr.sin_family = AF_INET; //设置为IP通信
+#if 1
+	if (!DnsCache::Instance().getDomainIP(ip, *((struct sockaddr*)&remote_addr)))
+		return -3;
+#else
+	memset(&remote_addr, 0, sizeof(remote_addr)); //数据初始化--清零	
 	remote_addr.sin_addr.s_addr = inet_addr(ip);//服务器IP地址
+#endif
+
+	remote_addr.sin_family = AF_INET; //设置为IP通信
 	remote_addr.sin_port = htons(port); //服务器端口号
 	int con_result = ::connect(getSocketFd(), (struct sockaddr*) &remote_addr, sizeof(struct sockaddr));
 	if (con_result < 0) 
@@ -239,8 +246,8 @@ void TCP_Client::_static_on_read(intptr_t sock, short event, void* arg)
 
 	TCP_Client* _THIS = (TCP_Client*)arg;//获取传进来的参数
 
-	if (_THIS->m_bLoopStopping)
-		return;
+	//if (_THIS->m_bLoopStopping)
+	//	return;
 
 	//--本来应该用while一直循环，但由于用了libevent，只在可以读的时候才触发_static_on_read(),故不必用while了
 	_THIS->m_buffSize =

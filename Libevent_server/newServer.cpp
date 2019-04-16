@@ -2,7 +2,7 @@
 #include <iostream>
 #include "TCP_Session_SyncEx.h"
 
-#define TEST_SYNC 1
+#define TEST_SYNC 0
 
 class MySession
 	: public TCP_Session

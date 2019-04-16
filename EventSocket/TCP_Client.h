@@ -10,7 +10,7 @@ public:
 	virtual ~TCP_Client();
 	
 public:
-	virtual int setup(const char* ip, u_short port);
+	virtual int setup(const char* host, u_short port);
 	virtual int loop() override;
 	virtual int loop_in_new_thread();	
 	virtual void closeSocket() override;
@@ -32,7 +32,7 @@ protected:
 #endif
 		_process_loop_in_new_thread(void* arg);
 	bool m_bLoopTheadHasStarted;
-	bool m_bLoopStopping;
+	//bool m_bLoopStopping;
 
 protected:
 	intptr_t _createSocket();
@@ -40,5 +40,7 @@ protected:
 	int _setupEvent();
 
 	int _stopLoop(bool waiting);
+
+	bool _releaseAfterClosed;
 };
 

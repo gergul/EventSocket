@@ -2,8 +2,9 @@
 #include <iostream>
 #include "TCP_Client_Sync.h"
 #include "TCP_Client_SyncEx.h"
+#include <vector>
 
-#define TEST_SYNC 1
+#define TEST_SYNC 0
 
 class MyClient
 	: public TCP_Client
@@ -64,20 +65,25 @@ void main()
 
 void main()
 {
-	MyClient client;
-	int res = client.setup("127.0.0.1", 9000);
-	if (0 == res)
+	std::vector<MyClient*> clients;
+	//for (int i = 0; i < 100; ++i)
 	{
-		client.loop_in_new_thread();
-		for (int i = 0; i < 1000; ++i)
+		MyClient* client = new MyClient();
+		clients.push_back(client);
+
+		int res = client->setup("test.gergul.com", 9000);
+		if (0 == res)
 		{
-			client.send("Gergul\n");
-			Sleep(500);
+			client->loop_in_new_thread();
+			for (int i = 0; i < 1000; ++i)
+			{
+				client->send("Gergul\n");
+				Sleep(10);
+			}
 		}
 	}
+	
 
-	Sleep(10000);
-	client.closeSocket();
 
 	while (true)
 		Sleep(100000);
