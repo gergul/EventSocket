@@ -4,6 +4,13 @@
 #include <ws2tcpip.h>
 #endif
 
+class WSA_STARTUP
+{
+public:
+	WSA_STARTUP();
+	~WSA_STARTUP();
+};
+
 WSA_STARTUP::WSA_STARTUP()
 {
 #ifdef _WIN32

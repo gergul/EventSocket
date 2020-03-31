@@ -80,17 +80,17 @@ void TCP_Client_SyncEx::onRecv(const char* data, int dataLen)
 	int nIdLen = m_curSendWaitId.length();
 	if (dataLen >= nIdLen)
 	{
-		bool bStartWidth = true;
+		bool bStartWith = true;
 		for (int i = 0; i < nIdLen; ++i)
 		{
 			if (data[i] != m_curSendWaitId[i])
 			{
-				bStartWidth = false;
+				bStartWith = false;
 				break;
 			}
 		}
 
-		if (bStartWidth)
+		if (bStartWith)
 		{
 			TCP_Client_Sync::onRecv(data + nIdLen, dataLen - nIdLen);
 			return;

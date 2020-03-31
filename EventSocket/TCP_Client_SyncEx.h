@@ -8,6 +8,7 @@ public:
 	TCP_Client_SyncEx();
 	virtual ~TCP_Client_SyncEx();
 
+private:
 	virtual int send(const char* data, int datalen = 0) override;
 
 protected:

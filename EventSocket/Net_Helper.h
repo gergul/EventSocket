@@ -13,10 +13,3 @@ public:
 	static std::string GetLocalIP(intptr_t fd);
 	static u_short GetLocalPort(intptr_t fd);
 };
-
-class WSA_STARTUP
-{
-public:
-	WSA_STARTUP();
-	~WSA_STARTUP();
-};

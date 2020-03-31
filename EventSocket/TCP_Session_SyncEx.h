@@ -9,7 +9,7 @@ public:
 	virtual ~TCP_Session_SyncEx();
 
 	virtual int send(const char* data, int datalen = 0) override;
-
+	
 protected:
 	///获得数据的事件
 	//  获得的是带标识的原始数据
